@@ -1,0 +1,319 @@
+---
+title: "WPT 2.0: Qualtiy Assurance/Quality Control Plan" 
+author:
+  - name: "Benjamin Choat, PhD \\ (bchoat@westconsultants.com)"
+    affiliation: "WEST Consultants, Inc."
+    email: "bchoat@westconsultants.com"
+date: "June 9, 2025"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-tile: "Table of Contents"
+    number-sections: true
+    code-fold: true
+    fontsize: "12"
+    linestretch: 1.5
+    # theme: cosmo # some options: default, cerulean, cosmo, united, journal, litera, etc.
+    embed-resources: true
+  pdf:
+    toc: true
+    toc-depth: 3
+    toc-tile: "Table of Contents"
+    number-sections: true
+    keep-tex: true
+    fontsize: "12"
+    linestretch: 1.5
+    code-block-border-left: false  # make codeblock background not-white
+  # docx: default
+# editor: visual
+highlight-style: github
+title-block-banner: true
+---
+
+{{< pagebreak >}}
+
+<!-- ![](./^WESTLOGO_Color_BlackLetters_WhiteBackground_RGB-BetterForDigitalUse.jpg){width="150"} -->
+
+# Introduction
+
+## Overview
+
+This file is the Quality Assurance/Quality Control (QA/QC) Plan for development of the Watershed Planning Tool 2.0, which builds on version 1.0. This file establishes coding-practice expectations, key factors that will be included during reviews, and presents a preliminary plan for the format, layout, and contents of the deliverable that will be provided during each code review. All information is subject to change as the project progresses.
+
+### Establishing Scope
+
+Clearly defining the scope and purpose of the code being reviewed ensures we do not over-engineer the QAQC, ultimately becoming a greater burden than help. The code being generated and reviewed is intended to produce a cursory channelization solver exposed either through a command-line interface (CLI) or if time permits, a Jupyter Notebook interface. The primary goal is to ensure the solver works correctly for the intended use case, which is to provide a quick and efficient solution for channelization problems fitting a predefined model and database structure. Being that the intent is not to create an API nor library used in other applications, the code review will focus on ensuring effective and efficient functionality defined above, documentation related to future developers, and general best practices. It will not be expected that developers of the code document and explain each function, class, etc. to the extent that would be needed if end users were expected to interact directly with them (e.g., via API).
+
+::: callout-note
+This is a standard note callout.
+:::
+
+::: callout-tip
+## Tip with a Title
+
+This is a tip callout. You can use a heading inside for the title.
+:::
+
+## Products
+
+1.  I need a clean version of the existing on which WPT 2.0 is being built.
+    -   Please provide the most up-to-date code available
+    -   Please provide updated and functioning install instructions
+    -   Please provide any documents related to user guidance, such as a user manual <br><br>
+2.  Config File Enhancements (marked as June 2, 2025)
+    -   Based on the meeting on June 10, 2025, this item has been delayed
+    -   Please provide scope of enhancements
+    -   Please provide example configuration file(s)
+    -   Please provide code for which configuration files are applicable <br><br>
+3.  In the project schedule provided to WEST, there are two items for which it is indicated WEST may participate listed under "Visualization Tool Enhancements". However, there are no scheduled deliverables. What are the expectations regarding WEST's role in the "Visualization Tool Enhancements" task?
+    -   Interim Reviews (WEST Optional)
+    -   Final Review <br><br>
+4.  Please provide example workflows or scripts used in any previous benchmarking exercises, if available. I'd like to set early performance baselines to support regression testing throughout development. <br><br>
+
+{{< pagebreak >}}
+
+# Quality Assurance {#sec-quality-assurance}
+
+This section is a draft of expected coding practices. It should be used to initiate a conversation between relevant parties to further refine expectations. The items listed below will guide future code reviews.
+
+Key components that define expectations include:
+
+## Documentation
+
+-   General instructions for installing and executing
+
+    -   There should be a logical order to installation instructions such that a new user can follow them and successfully build the software
+    -   Instructions should be provided in case a user needs to troubleshoot or request assistance
+
+-   File-level documentation (i.e., high-level overview at top of each file)
+
+    -   At the top of each file there should be, at minimum:
+        -   Information about when the file was written and/or updated
+        -   Who wrote and/or updated the file
+        -   A high-level overview of what the code in the file does
+
+-   Class and function docstrings
+
+    -   Each defined class and function should include an informative docstring describing:
+        1.  The use of the class or function
+        2.  The inputs to the class or function
+        3.  The outputs from the class or function
+        4.  (Optional) provide example syntax of application of the class or function
+        5.  (Optional) If an author different from the author of the file itself writes a class or function, the authors name and contact should be provided within the docstring
+
+-   In-code comments (e.g., inline, preceding, comment blocks, etc.)
+
+    -   Comments should be placed within the code itself describing both what is being done by the relevant lines of code, and why it is being done (i.e., provide context)
+    -   Not all lines of code will require commenting as sometimes the 'what' and 'why' are obvious from the code and syntax itself (especially with Python)
+
+## Code Structure and Organization
+
+-   Directory and file structure
+
+    -   Directory structure should be clearly organized, for example separating tests, executables, build code, and other documentation
+    -   Each file should have a clear theme/application
+
+-   Code structure and modularity
+
+    -   Functions, classes, and files should be appropriately limited in scope
+    -   With exceptions, functions should do one thing and do it well
+    -   With exceptions, classes should represent a single entity/concept
+
+-   Appropriate use of objects and functions
+
+    -   In general, functions are appropriate when performing a process or computation
+    -   In general, objects (classes) are appropriate when maintaining or tracking state
+    -   Exceptions exist, but code is typically clearer and more maintainable when these principles are pursued.
+
+## Code Formatting and Basic Bug Identification via Linters
+
+-   Ensures maintainability, readability, and overall code quality
+
+-   Encourages PEP8 compliance and agreed upon guidelines, within reason
+
+-   Promotes consistent formatting including comments, docstrings, indentation, and other formatting
+
+-   Acts as first-pass check for basic bugs and bad practices
+
+## Reliability and Error Handling
+
+-   Assertions and Exceptions used consistently and appropriately
+
+-   Implemented in areas prone to failure (e.g., I/O, user input, etc.)
+
+-   Code avoids silent failures and provides informative messages on failure
+
+-   Code continues to operate when a screensaver is activated
+
+    -   Specific request from Harris County regarding IT security protocols
+
+## Test Coverage and Quality
+
+-   Assess scope and effectiveness of existing tests (e.g., which modules/functions are covered and how meaningful tests are)
+
+-   Evaluate code coverage of tested files and identify untested and partially tested files
+
+## Dependency Management
+
+-   Dependencies should be clearly documented, including versions
+
+-   For Python environments, being overly specific with versions for all dependencies (e.g., as produced by `conda env create -f environment.yml`) can cause issues between slightly different versions of operating systems
+
+-   Identify outdated and/or vulnerable dependencies
+
+-   Distinguish between runtime dependencies and development-only dependencies
+
+-   Only runtime dependencies should be included in user-facing installation instructions and environment files
+
+## Security Analysis
+
+-   Limited to review of Python packages unless additional security review requested
+
+## Performance and Efficiency
+
+-   Efficient Use of Memory
+
+    -   Variables and large objects explicitly deleted when no longer needed
+    -   Manual garbage collection when appropriate (e.g., after deleting large or many objects)
+
+-   Use generators and context managers to manage memory and resources effectively
+
+-   Efficient file formats used when practical and when I/O performance is a limiting (e.g., Parquet vs CSV)
+
+-   Memory leaks and performance bottlenecks are identified
+
+{{< pagebreak >}}
+
+# Quality Control
+
+This section provides an overview of the methodology that will be used to inspect the items in Quality Assurance (@sec-quality-assurance).
+
+## Overview of Packages
+
+Ten Python packages have been identified for assisting with code reviews. More packages may be included as needed. These packages ([@tbl-packages]) will be used in addition to a manual review. Manual review refers to the reviewer manually working through the code to check compliance with agreed upon standards.
+
+|  |  |
+|:----------------------------------:|:----------------------------------:|
+| ***Use*** | ***Package*** |
+| PEP8 compliance | pylint, black (formatter) |
+| PEP8 compliance, formatting, basic bug ID'ing, more | ruff |
+| Test coverage | pytest, pytest-cov |
+| Check common security issues | bandit |
+| Memory profiling | memory-profiler |
+| Memory leak checking | tracemalloc |
+| Function-level performance profiling | cProfile |
+| Detailed performance profiling of hotspots from cProfile | line_profiler |
+| Security check on dependencies | pip-audit |
+
+: Select Python packages to be used during code reviews {#tbl-packages}
+
+The specific uses of each Python package are presented here for each item described in Quality Assurance (@sec-quality-assurance). Among the ten Python packages "manual review" is also included as a tool, and will play a critical review in the review process.
+
+-   Documentation
+
+    -   Manual review
+    -   [pylint](https://pylint.org/)
+    -   [ruff](https://astral.sh/ruff)
+
+-   Code Structure and Organization
+
+    -   Manual review
+    -   [pylint](https://pylint.org/)
+    -   [ruff](https://astral.sh/ruff)
+
+-   Code formatting and basic bug identification via linters
+
+    -   Manual review
+    -   [pylint](https://pylint.org/)
+    -   [ruff](https://astral.sh/ruff)
+
+-   Reliability and Error Handling
+
+    -   Manual review
+    -   [pylint](https://pylint.org/)
+    -   [ruff](https://astral.sh/ruff)
+
+-   Test Coverage and Quality
+
+    -   Manual review
+    -   [pytest](https://github.com/pytest-dev/pytest-cov)
+    -   [pytest-cov](https://github.com/pytest-dev/pytest-cov)
+
+-   Dependency Management
+
+    -   Manual review
+        -   based on procedure used to create the environment one or more of:
+            -   [Conda](https://docs.conda.io/en/latest/)
+            -   [uv](https://docs.astral.sh/uv/)
+            -   [pipdeptree](https://github.com/tox-dev/pipdeptree)
+            -   [johnydep](https://github.com/wimglenn/johnnydep)
+
+-   Security Analysis
+
+    -   Manual review
+    -   [pip-audit](https://github.com/pypa/pip-audit)
+    -   [bandit](https://bandit.readthedocs.io/en/latest/)
+
+-   Performance and Efficiency
+
+    -   Manual review
+    -   [memory-profiler](https://github.com/pythonprofilers/memory_profiler)
+    -   [tracemalloc](https://docs.python.org/3/library/tracemalloc.html)
+    -   [cProfile](https://docs.python.org/3/library/profile.html)
+    -   [line_profiler](@https://github.com/pyutils/line_profiler)
+
+{{< pagebreak >}}
+
+# Code Review Deliverables
+
+## How Code Will Be Provided to WEST
+
+AtkinsRéalis will provide code for review via email and/or the Sharepoint drives established by Omega.
+
+[Sharepoint 1](https://omegaengineers.sharepoint.com/sites/hcfcdwpt)
+
+[Sharepoint 2](https://omegaengineers-my.sharepoint.com/personal/asalazar_omegaengineers_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fasalazar%5Fomegaengineers%5Fcom%2FDocuments%2FProjects%2FHCFCD%20WPT%202%2E0&ga=1)
+
+## Planned Reviews
+
+1.  June 23, 2025
+    -   Initial review of Routing Development Code
+2.  July 28, 2025
+    -   Second and final review of Routing Development Code
+3.  August 18, 2025
+    -   Initial review of Overflows Development Code
+4.  September, 22, 2025
+    -   Second and final review of Overflows Development Code
+5.  September 22, 2025
+    -   Initial review of Residual Volumes Code
+6.  November 10, 2025
+    -   Second and final review of Routing Development Code
+7.  October 20, 2025
+    -   First major code review aligning with 60% completion
+8.  February 2, 2026
+    -   Second major code review aligning with 90% completion
+9.  March 2, 2026
+    -   Third and final major code review indicating completion of the project
+
+## Content and Formatting
+
+Reviews will consist of major and minor reviews. Major reviews are those indicated as such in the Project Schedule. Other reviews will be considered minor reviews. Review reports will be provided as html and PDF files.
+
+Each major and minor review will include a summary report. The depth and detail of the summary reports will vary by the level of review. Each review will include a summary of the state of the code including what is going well, what needs more attention, and high-level recommendations. Comments will be categorized as “suggestion", “low priority”, “medium priority”, “high priority”, and “critical”. Major reviews will be considered complete once all high priority and critical comments are addressed. If a review does not reach “completed” status, relevant parties will coordinate to determine an appropriate path forward for unresolved issues.
+
+Reviews will include the following sections:
+
+1.  Detailed Findings (minor and major reviews)
+2.  Review Methodology (minor and major reviews)
+3.  Documentation and Readability (minor and major reviews)
+4.  Code Structure and Organization (minor and major reviews)
+5.  Code formatting and basic bug identification (minor and major reviews)
+6.  Reliability and Error Handling (major reviews)
+7.  Unit test coverage and quality (major reviews)
+8.  Dependency Management (major reviews)
+9.  Security Analysis (major reviews)
+10. Performance and Efficiency (major reviews)
+11. Appendix including detailed reports from various sections (minor and major reviews)
+
+{{< pagebreak >}}
