@@ -1,0 +1,44 @@
+---
+title: "Python Coding Best Practices"
+author:
+  - name: "Benjamin Choat, PhD \\ (bchoat@westconsultants.com)"
+    affiliation: "WEST Consultants, Inc."
+    email: "bchoat@westconsultants.com"
+date: "Created: June 25, 2025 (Living Document)"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-tile: "Table of Contents"
+    number-sections: true
+    code-fold: true
+    fontsize: "12"
+    linestretch: 1.5
+    # theme: cosmo # some options: default, cerulean, cosmo, united, journal, litera, etc.
+    embed-resources: true
+  pdf:
+    toc: true
+    toc-depth: 3
+    toc-tile: "Table of Contents"
+    number-sections: true
+    keep-tex: true
+    fontsize: "12"
+    linestretch: 1.5
+    code-block-border-left: false  # make codeblock background not-white
+  # docx: default
+# editor: visual
+highlight-style: github
+title-block-banner: true
+---
+
+
+
+# NetCDF, Zarr, and other Xarray-compatible versions
+
+## Managing coordinate systems
+These file formats do not inherently store information about coordinate systems. So, it is important to include that information explicitly and apply the coordinate systems in a consistent way.
+
+See precip_webapp/aws functions/ pmp functions file for guidance/examples
+TODO: Add info about how to store
+
+TODO: Add code/function to be used to apply stored info to 
