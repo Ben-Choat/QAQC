@@ -1,0 +1,102 @@
+# BChoat 2025/06/26
+# This is meant to represent a baseline QAQC environment.
+# The intention is to use it to create envs, then use 
+# uv to create .toml's with better project definitions
+
+# several non-QAQC related modules are listed near the bottom of
+# the file and are commented out.
+
+#####################################################
+# recommend using uv for venv creation and module install
+#####################################################
+
+### install uv if needed
+# see https://docs.astral.sh/uv/getting-started/installation/
+
+# windows:
+# powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# linux
+# curl -LsSf https://astral.sh/uv/install.sh | sh
+# or
+# wget -qO- https://astral.sh/uv/install.sh | sh
+###
+
+### uv venv creation
+# uv venv .venv python 3.13
+# .venv/Scripts/activate
+# uv pip install -r requirements_dev.txt
+###
+
+#####################################################
+# QAQC
+#####################################################
+# # Linting and formatting
+ruff>=0.4.0             # Linting and formatting (PEP8, unused imports, etc.)
+# pylint>=3.1.0         # (Replaced by ruff) General-purpose linter
+# black>=24.3.0         # (Replaced by ruff) Code formatter
+# flake8>=7.0.0         # (Replaced by ruff) Style guide enforcement
+# mypy>=1.8.0           # (Replaced by pyright) Static type checker
+pyright>=1.1.4          # Static type checker (faster, language server compatible)
+
+# # Security auditing
+bandit>=1.7.7           # Scan code for common security issues (e.g., hardcoded secrets)
+pip-audit>=2.7.2        # Audit installed packages for known vulnerabilities
+
+# # Testing and coverage
+pytest>=8.1.0           # Unit testing framework
+pytest-cov>=5.0.0       # Test coverage reporting plugin for pytest
+tox>=4.14.0             # Test automation across environments and Python versions
+coverage>=7.5.0         # Code coverage analysis and reporting tool
+
+# Profiling and performance analysis
+# # cProfile                # Built-in profiler for function-level performance (no install needed)
+line_profiler>=4.1.2    # Line-by-line performance profiling for functions
+memory-profiler>=0.61.0 # Monitor memory usage of Python code line-by-line
+# # tracemalloc             # Built-in memory allocation tracker (no install needed)
+
+# # Dependency analysis
+pipdeptree>=2.13.0      # Display dependency tree of installed packages
+johnnydep>=1.15.2       # Inspect package dependency metadata without installing
+
+# # Optional tools for analysis and visualization
+pydeps>=1.12.17         # Generate dependency graphs of modules/packages
+pyinstrument>=4.6.2     # Lightweight statistical profiler for quick performance snapshots
+snakeviz>=2.1.1         # Browser-based visualization tool for cProfile output
+
+# # Editor/IDE integration helpers (optional)
+pre-commit>=3.7.0       # Automate code quality checks on git commit
+
+# # general python libraries - not QAQC related
+pandas>=2.0           # DataFrames and tabular analysis
+numpy>=2.0           # Core numerical computation
+matplotlib>=3.9       # Static plotting
+plotly>=6.0         # Interactive plotting
+
+#####################################################
+# other non-standards
+#####################################################
+# interactive ide
+ipykernel
+
+# # # data handling
+# pyarrow>=15.0     # Arrow file support, Parquet, Feather
+# zarr>=2.17        # Chunked compressed data (e.g., for cloud workflows)
+# netCDF4>=1.6      # netCDF file reading/writing
+# xarray>=2025.6    # Labeled N-D arrays and netCDF/GRIB support
+
+# # # geospatial
+# geopandas>=0.14   # Vector geospatial data
+# rasterio>=1.3     # Raster I/O and geospatial metadata
+
+# # # web app and dashboard frameworks
+# flask>=3.0.0           # Lightweight web framework (WSGI-based)
+# dash>=2.17.0           # Web app framework for interactive dashboards (built on Flask)
+# dash-bootstrap-components>=1.5.0  # Bootstrap theming and layout components for Dash
+# gunicorn>=21.2.0       # WSGI HTTP server for Flask/Dash deployment (prod environments)
+
+# # # database interaction and ORM
+# sqlalchemy>=2.0.30        # Core SQL toolkit and ORM (for interacting with relational databases)
+# alembic>=1.13.1           # Database migrations for SQLAlchemy (schema versioning)
+# psycopg2-binary>=2.9.9    # PostgreSQL driver (if using PostgreSQL backend)
+# sqlite-utils>=3.36        # Utilities for working with SQLite databases (optional)
