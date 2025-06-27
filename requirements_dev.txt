@@ -13,10 +13,10 @@
 ### install uv if needed
 # see https://docs.astral.sh/uv/getting-started/installation/
 
-# windows:
+# windows - run following in powershell terminal:
 # powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-# linux
+# linux - run following in bash terminal
 # curl -LsSf https://astral.sh/uv/install.sh | sh
 # or
 # wget -qO- https://astral.sh/uv/install.sh | sh
@@ -78,6 +78,8 @@ plotly>=6.0         # Interactive plotting
 #####################################################
 # interactive ide
 ipykernel
+nbformat>=4.2.0     # for interactive plotting in vs code
+nbclient>=0.9
 
 # # # data handling
 # pyarrow>=15.0     # Arrow file support, Parquet, Feather
@@ -100,3 +102,6 @@ ipykernel
 # alembic>=1.13.1           # Database migrations for SQLAlchemy (schema versioning)
 # psycopg2-binary>=2.9.9    # PostgreSQL driver (if using PostgreSQL backend)
 # sqlite-utils>=3.36        # Utilities for working with SQLite databases (optional)
+
+# # quarto tables
+# great-tables>=0.16.0

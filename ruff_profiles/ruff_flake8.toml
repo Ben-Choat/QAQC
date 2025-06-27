@@ -1,0 +1,6 @@
+# BChoat 2025/06/27
+# ruff configuration to align with flake8 linter
+
+# By default, Ruff enables Flake8's F rules, along with a subset of the E rules,
+# omitting any stylistic rules that overlap with the use of a formatter, like ruff format or Black.
+

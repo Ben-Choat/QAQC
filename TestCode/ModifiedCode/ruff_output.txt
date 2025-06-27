@@ -1,0 +1,1160 @@
+CalculateAveragesAcrossTiffs.py:9:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 7 |   Asked Claude 3.7 to write, and made small modifications
+ 8 |   '''
+ 9 | / import numpy as np
+10 | | import rioxarray
+11 | | import xarray as xr
+12 | | from pathlib import Path
+   | |________________________^ I001
+   |
+   = help: Organize imports
+
+CalculateAveragesAcrossTiffs.py:132:5: SIM102 Use a single `if` statement instead of nested `if` statements
+    |
+131 |       # Check nodata value
+132 | /     if raster.rio.nodata != reference.rio.nodata:
+133 | |         if verbose:
+    | |___________________^ SIM102
+134 |               print(f"Warning: {filename} has different nodata value. "
+135 |                      "Will proceed but this may affect results.")
+    |
+    = help: Combine `if` statements using `and`
+
+ComparePRISM_CONUS404_SeasonalPrecip.py:10:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 8 |   #############################################
+ 9 |
+10 | / import xarray as xr
+11 | | import rioxarray
+12 | | from rasterio.enums import Resampling
+13 | | from pathlib import Path
+14 | | import CONUS404_Functions.GIS_Functs as GF
+15 | | import matplotlib.pyplot as plt
+   | |_______________________________^ I001
+16 |
+17 |   # %% define input vars, dirs, and such
+   |
+   = help: Organize imports
+
+ComparePRISM_CONUS404_SeasonalPrecip.py:10:18: F401 [*] `xarray` imported but unused
+   |
+ 8 | #############################################
+ 9 |
+10 | import xarray as xr
+   |                  ^^ F401
+11 | import rioxarray
+12 | from rasterio.enums import Resampling
+   |
+   = help: Remove unused import: `xarray`
+
+ComparePRISM_CONUS404_SeasonalPrecip.py:14:41: F401 [*] `CONUS404_Functions.GIS_Functs` imported but unused
+   |
+12 | from rasterio.enums import Resampling
+13 | from pathlib import Path
+14 | import CONUS404_Functions.GIS_Functs as GF
+   |                                         ^^ F401
+15 | import matplotlib.pyplot as plt
+   |
+   = help: Remove unused import: `CONUS404_Functions.GIS_Functs`
+
+CreateBBOXshpForEntireDomain.py:11:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 9 |   ####################################################
+10 |
+11 | / import pandas as pd
+12 | | import geopandas as gpd
+13 | | from shapely.geometry import Point
+14 | | from shapely.geometry import box
+15 | | import matplotlib.pyplot as plt
+16 | | import cartopy.crs as ccrs
+   | |__________________________^ I001
+   |
+   = help: Organize imports
+
+CreateBBOXshpForEntireDomain.py:13:30: F401 [*] `shapely.geometry.Point` imported but unused
+   |
+11 | import pandas as pd
+12 | import geopandas as gpd
+13 | from shapely.geometry import Point
+   |                              ^^^^^ F401
+14 | from shapely.geometry import box
+15 | import matplotlib.pyplot as plt
+   |
+   = help: Remove unused import: `shapely.geometry.Point`
+
+CreateBBOXshpForEntireDomain.py:16:23: F401 [*] `cartopy.crs` imported but unused
+   |
+14 | from shapely.geometry import box
+15 | import matplotlib.pyplot as plt
+16 | import cartopy.crs as ccrs
+   |                       ^^^^ F401
+   |
+   = help: Remove unused import: `cartopy.crs`
+
+CreateBBOXshpForEntireDomain.py:23:89: E501 Line too long (95 > 88)
+   |
+22 | # directory/file holding data with lat/lons of sites
+23 | file_in = 'P:/2023/OWRD/PrecipFrequency/Data/QC_AMPSite_all_v12c_annual/1hour/1hourInvData.csv'
+   |                                                                                         ^^^^^^^ E501
+24 |
+25 | # directory/file to write subset of data to
+   |
+
+CreateSHPofEastDomainWEcoregions.py:24:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+22 |   #################################################
+23 |
+24 | / from pathlib import Path
+25 | | import geopandas as gpd
+26 | | import pandas as pd
+27 | | from shapely.geometry import Polygon
+   | |____________________________________^ I001
+   |
+   = help: Organize imports
+
+DevelopToyDataset.py:15:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+13 |   ####################################################
+14 |
+15 | / import pandas as pd
+16 | | import geopandas as gpd
+17 | | from shapely.geometry import Point
+18 | | from shapely.geometry import box
+19 | | import matplotlib.pyplot as plt
+20 | | import cartopy.crs as ccrs
+   | |__________________________^ I001
+   |
+   = help: Organize imports
+
+DevelopToyDataset.py:27:89: E501 Line too long (94 > 88)
+   |
+26 | # directory/file holding data with lat/lons of sites
+27 | file_in = 'P:/2023/OWRD/PrecipFrequency/Data/QC_AMPSite_all_v17_annual/1hour/1hourInvData.csv'
+   |                                                                                         ^^^^^^ E501
+28 |
+29 | # directory/file to write subset of data to
+   |
+
+DevelopToyDataset.py:44:33: B905 [*] `zip()` without an explicit `strict=` parameter
+   |
+43 | # convert to geodataframe using lat lon as geometry
+44 | geometry = [Point(xy) for xy in zip(df_in['Long'], df_in['Lat'])]
+   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ B905
+45 | gdf_in = gpd.GeoDataFrame(df_in, geometry=geometry, crs="EPSG:4326")
+46 | gdf_in = gdf_in[['Station ID', 'SiteID', 'Long', 'Lat', \
+   |
+   = help: Add explicit value for parameter `strict=`
+
+DevelopToyDataset.py:51:1: B018 Found useless expression. Either assign it to a variable or remove it.
+   |
+49 | # gdf_in.plot(markersize=1)
+50 | map = gdf_in.explore(marker_kwds=dict(radius=0.1))
+51 | map
+   | ^^^ B018
+52 |
+53 | # define bbox based on map
+   |
+
+DevelopToyDataset.py:65:1: B018 Found useless expression. Either assign it to a variable or remove it.
+   |
+63 | gdf_sub.explore()
+64 |
+65 | gdf_sub.shape
+   | ^^^^^^^^^^^^^ B018
+66 |
+67 | gdf_sub.to_file(file_out)
+   |
+
+ExampleApplications.py:29:1: E402 Module level import not at top of file
+   |
+27 | # pretty much all of this functionality relies on:
+28 | # not direclty used here, but all DataArrays/DataSets are xarray
+29 | import xarray as xr
+   | ^^^^^^^^^^^^^^^^^^^ E402
+30 |
+31 | # %% read data in from .zarr and assign coordinates to dataset and dataarrays
+   |
+
+ExampleApplications.py:29:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+27 |   # pretty much all of this functionality relies on:
+28 |   # not direclty used here, but all DataArrays/DataSets are xarray
+29 | / import xarray as xr
+30 | |
+31 | | # %% read data in from .zarr and assign coordinates to dataset and dataarrays
+32 | | # in the dataset.
+33 | | ############################################
+34 | | from pathlib import Path
+35 | | from CONUS404_Functions import read_zarr_parse_coords
+   | |_____________________________________________________^ I001
+36 |
+37 |   # NOTE: crs_attrs points to attribute name for which the crs is stored as
+   |
+   = help: Organize imports
+
+ExampleApplications.py:34:1: E402 Module level import not at top of file
+   |
+32 | # in the dataset.
+33 | ############################################
+34 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^ E402
+35 | from CONUS404_Functions import read_zarr_parse_coords
+   |
+
+ExampleApplications.py:35:1: E402 Module level import not at top of file
+   |
+33 | ############################################
+34 | from pathlib import Path
+35 | from CONUS404_Functions import read_zarr_parse_coords
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+36 |
+37 | # NOTE: crs_attrs points to attribute name for which the crs is stored as
+   |
+
+ExampleApplications.py:54:1: E402 Module level import not at top of file
+   |
+52 | # I recommend just using this function when reprojecting
+53 | ##################################################
+54 | from CONUS404_Functions import reproject_dataarray
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+55 |
+56 | # make sure to pass a dataarray and not a dataset
+   |
+
+ExampleApplications.py:62:1: E402 Module level import not at top of file
+   |
+60 | # dataarray
+61 | ##################################################
+62 | from CONUS404_Functions import resample_dataarray_to_match
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+63 |
+64 | an_mean_resampled = resample_dataarray_to_match(
+   |
+
+ExampleApplications.py:74:1: E402 Module level import not at top of file
+   |
+72 | # helpful for plotting but I don't think you can save to .tiff for example
+73 | ##################################################
+74 | from CONUS404_Functions import reproject_dataarray_w_datetime
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+75 |
+76 | da = reproject_dataarray_w_datetime(
+   |
+
+ExampleApplications.py:86:1: E402 Module level import not at top of file
+   |
+84 | # e.g., I used this to find max 1-day precip and the time they occurred
+85 | ###################################################
+86 | from CONUS404_Functions import max_with_time
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+87 |
+88 | an_max_spat = (
+   |
+
+ExampleApplications.py:101:1: E402 Module level import not at top of file
+    |
+ 99 | # see ProcessCONUS404_MaxStorms.py for an example application
+100 | ###################################################
+101 | from CONUS404_Functions import rolling_sum_max_and_time
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+102 |
+103 | da_out = rolling_sum_max_and_time(
+    |
+
+ExampleApplications.py:111:1: E402 Module level import not at top of file
+    |
+109 | # %% save a xarray.DataArray to .tiff
+110 | ###########################################
+111 | import rioxarray
+    | ^^^^^^^^^^^^^^^^ E402
+112 |
+113 | # subset DataSet to DataArray
+    |
+
+ExampleApplications.py:111:8: F401 [*] `rioxarray` imported but unused
+    |
+109 | # %% save a xarray.DataArray to .tiff
+110 | ###########################################
+111 | import rioxarray
+    |        ^^^^^^^^^ F401
+112 |
+113 | # subset DataSet to DataArray
+    |
+    = help: Remove unused import: `rioxarray`
+
+ExtractCovariateValsAtSites.py:7:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 5 |   '''
+ 6 |
+ 7 | / from pathlib import Path
+ 8 | | import rasterio as rio
+ 9 | | from pyproj import Transformer
+10 | | import pandas as pd
+11 | | import numpy as np
+   | |__________________^ I001
+   |
+   = help: Organize imports
+
+ExtractCovariateValsAtSites.py:43:36: B905 [*] `zip()` without an explicit `strict=` parameter
+   |
+41 |     #     Point(xy) for xy in zip(result_df[lon_col], result_df[lat_col])
+42 |     #     ]
+43 |     coords = [(x, y) for (x, y) in zip(result_df[lon_col], result_df[lat_col])]
+   |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ B905
+44 |
+45 |     # gdf = gpd.GeoDataFrame(result_df, geometry=geometry, crs=input_crs)
+   |
+   = help: Add explicit value for parameter `strict=`
+
+ExtractOuterBoundaryOfHUC8Domains.py:14:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+12 |   # %% load libs define vars and etc.
+13 |   ##################################
+14 | / import geopandas as gpd
+15 | | from shapely.ops import unary_union
+16 | | from shapely.geometry import Polygon
+   | |____________________________________^ I001
+17 |
+18 |   # file_in = "E:/Projects/OWRD_PrecipFreq/GIS/CascadesWestOregon_HUC8_100AR.shp"
+   |
+   = help: Organize imports
+
+ExtractOuterBoundaryOfHUC8Domains.py:15:25: F401 [*] `shapely.ops.unary_union` imported but unused
+   |
+13 | ##################################
+14 | import geopandas as gpd
+15 | from shapely.ops import unary_union
+   |                         ^^^^^^^^^^^ F401
+16 | from shapely.geometry import Polygon
+   |
+   = help: Remove unused import: `shapely.ops.unary_union`
+
+PlotPMPReturnPeriod_BEC.py:9:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 7 |   """
+ 8 |   # import os  # , sys
+ 9 | / from pathlib import Path
+10 | | import matplotlib as mpl
+11 | | import matplotlib.pyplot as plt
+12 | | import cartopy
+13 | | import cartopy.crs as ccrs
+14 | | from scipy.stats import genextreme
+15 | | from rasterio.enums import Resampling
+16 | | import numpy as np
+17 | | import xarray as xr
+   | |___________________^ I001
+18 |   # import rioxarray
+   |
+   = help: Organize imports
+
+PlotPMPReturnPeriod_BEC.py:44:31: E701 Multiple statements on one line (colon)
+   |
+42 | gen_outdir = Path("C:/Projects/OWRD/PrecipFreq/PredictedGEVParams_NewExpl"
+43 |                   "/MarginalGEVs")
+44 | if not Path.exists(gen_outdir): Path.mkdir(gen_outdir)
+   |                               ^ E701
+45 | outdir = Path(gen_outdir, indir.name)
+46 | if not Path.exists(outdir): Path.mkdir(outdir)
+   |
+
+PlotPMPReturnPeriod_BEC.py:46:27: E701 Multiple statements on one line (colon)
+   |
+44 | if not Path.exists(gen_outdir): Path.mkdir(gen_outdir)
+45 | outdir = Path(gen_outdir, indir.name)
+46 | if not Path.exists(outdir): Path.mkdir(outdir)
+   |                           ^ E701
+   |
+
+PlotPMPReturnPeriod_BEC.py:71:89: E501 Line too long (192 > 88)
+   |
+69 | …
+70 | …
+71 | ….stats.genextreme uses a different sign convention than the SpatialExtremes R Package used to generate these results
+   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E501
+72 | …
+73 | …
+   |
+
+PlotPMPReturnPeriod_BEC.py:115:89: E501 Line too long (89 > 88)
+    |
+113 | # pmp_vals_rp.pmp_RP["x"] = ("x", pmp_vals_rp.coords["x"].values)
+114 | # pmp_vals_rp.pmp_RP["y"] = ("y", pmp_vals_rp.coords["y"].values)
+115 | # pmp_vals_rp['pmp_RP'] = pmp_vals_rp.pmp_RP.where(~np.isinf(pmp_vals_rp.pmp_RP), np.nan)
+    |                                                                                         ^ E501
+116 | pmp_vals_rp['pmp_RP'].values[np.isinf(pmp_vals_rp['pmp_RP'].values)] = np.nan
+117 | pmp_vals_rp.pmp_RP.rio.to_raster(
+    |
+
+ProcessCONUS404.py:17:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+15 |   ######################################################
+16 |
+17 | / import os
+18 | | from pathlib import Path
+19 | | # import fsspec
+20 | | import xarray as xr
+21 | | import hvplot.xarray
+22 | | import holoviews as hv
+23 | | import intake
+24 | | import metpy
+25 | | import cartopy.crs as ccrs
+26 | | # import zarr
+27 | | import rioxarray
+28 | | import pandas as pd
+29 | | import hvplot.pandas  
+30 | | import matplotlib.pyplot as plt
+   | |_______________________________^ I001
+31 |
+32 |   os.environ['USE_PYGEOS'] = '0'
+   |
+   = help: Organize imports
+
+ProcessCONUS404.py:20:18: F401 [*] `xarray` imported but unused
+   |
+18 | from pathlib import Path
+19 | # import fsspec
+20 | import xarray as xr
+   |                  ^^ F401
+21 | import hvplot.xarray
+22 | import holoviews as hv
+   |
+   = help: Remove unused import: `xarray`
+
+ProcessCONUS404.py:22:21: F401 [*] `holoviews` imported but unused
+   |
+20 | import xarray as xr
+21 | import hvplot.xarray
+22 | import holoviews as hv
+   |                     ^^ F401
+23 | import intake
+24 | import metpy
+   |
+   = help: Remove unused import: `holoviews`
+
+ProcessCONUS404.py:24:8: F401 [*] `metpy` imported but unused
+   |
+22 | import holoviews as hv
+23 | import intake
+24 | import metpy
+   |        ^^^^^ F401
+25 | import cartopy.crs as ccrs
+26 | # import zarr
+   |
+   = help: Remove unused import: `metpy`
+
+ProcessCONUS404.py:27:8: F401 [*] `rioxarray` imported but unused
+   |
+25 | import cartopy.crs as ccrs
+26 | # import zarr
+27 | import rioxarray
+   |        ^^^^^^^^^ F401
+28 | import pandas as pd
+29 | import hvplot.pandas  
+   |
+   = help: Remove unused import: `rioxarray`
+
+ProcessCONUS404.py:29:8: F401 [*] `hvplot.pandas` imported but unused
+   |
+27 | import rioxarray
+28 | import pandas as pd
+29 | import hvplot.pandas  
+   |        ^^^^^^^^^^^^^ F401
+30 | import matplotlib.pyplot as plt
+   |
+   = help: Remove unused import: `hvplot.pandas`
+
+ProcessCONUS404_Daily_AnnualMax.py:22:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+20 |   # called, but may still need to be loaded to be accessed from other libraries
+21 |   # that are directly called
+22 | / import os
+23 | | from pathlib import Path
+24 | | import time
+25 | | import fsspec
+26 | | import xarray as xr
+27 | | import hvplot.xarray
+28 | | import holoviews as hv
+29 | | import intake
+30 | | import metpy
+31 | | import cartopy.crs as ccrs
+32 | | import rioxarray
+33 | | import pandas as pd
+34 | | import hvplot.pandas
+35 | | import matplotlib.pyplot as plt
+36 | | from CONUS404_Functions import reproject_dataarray, max_with_time
+   | |_________________________________________________________________^ I001
+37 |
+38 |   # These two should not need to be imported, but there is currently
+   |
+   = help: Organize imports
+
+ProcessCONUS404_Daily_AnnualMax.py:25:8: F401 [*] `fsspec` imported but unused
+   |
+23 | from pathlib import Path
+24 | import time
+25 | import fsspec
+   |        ^^^^^^ F401
+26 | import xarray as xr
+27 | import hvplot.xarray
+   |
+   = help: Remove unused import: `fsspec`
+
+ProcessCONUS404_Daily_AnnualMax.py:28:21: F401 [*] `holoviews` imported but unused
+   |
+26 | import xarray as xr
+27 | import hvplot.xarray
+28 | import holoviews as hv
+   |                     ^^ F401
+29 | import intake
+30 | import metpy
+   |
+   = help: Remove unused import: `holoviews`
+
+ProcessCONUS404_Daily_AnnualMax.py:30:8: F401 [*] `metpy` imported but unused
+   |
+28 | import holoviews as hv
+29 | import intake
+30 | import metpy
+   |        ^^^^^ F401
+31 | import cartopy.crs as ccrs
+32 | import rioxarray
+   |
+   = help: Remove unused import: `metpy`
+
+ProcessCONUS404_Daily_AnnualMax.py:32:8: F401 [*] `rioxarray` imported but unused
+   |
+30 | import metpy
+31 | import cartopy.crs as ccrs
+32 | import rioxarray
+   |        ^^^^^^^^^ F401
+33 | import pandas as pd
+34 | import hvplot.pandas
+   |
+   = help: Remove unused import: `rioxarray`
+
+ProcessCONUS404_Daily_AnnualMax.py:33:18: F401 [*] `pandas` imported but unused
+   |
+31 | import cartopy.crs as ccrs
+32 | import rioxarray
+33 | import pandas as pd
+   |                  ^^ F401
+34 | import hvplot.pandas
+35 | import matplotlib.pyplot as plt
+   |
+   = help: Remove unused import: `pandas`
+
+ProcessCONUS404_Daily_AnnualMax.py:34:8: F401 [*] `hvplot.pandas` imported but unused
+   |
+32 | import rioxarray
+33 | import pandas as pd
+34 | import hvplot.pandas
+   |        ^^^^^^^^^^^^^ F401
+35 | import matplotlib.pyplot as plt
+36 | from CONUS404_Functions import reproject_dataarray, max_with_time
+   |
+   = help: Remove unused import: `hvplot.pandas`
+
+ProcessCONUS404_Daily_AnnualMax.py:217:1: E402 Module level import not at top of file
+    |
+215 | # %% read in files just saved as test
+216 | #######################################
+217 | from CONUS404_Functions import read_zarr_parse_coords
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+218 | annual_test = xr.open_zarr(
+219 |     Path(DIR_TIFFS, "CONUS404_AnnualMaxima_annual.zarr")
+    |
+
+ProcessCONUS404_Daily_AnnualMax.py:217:1: I001 [*] Import block is un-sorted or un-formatted
+    |
+215 | # %% read in files just saved as test
+216 | #######################################
+217 | from CONUS404_Functions import read_zarr_parse_coords
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ I001
+218 | annual_test = xr.open_zarr(
+219 |     Path(DIR_TIFFS, "CONUS404_AnnualMaxima_annual.zarr")
+    |
+    = help: Organize imports
+
+ProcessCONUS404_Daily_AnnualMax.py:217:32: F401 [*] `CONUS404_Functions.read_zarr_parse_coords` imported but unused
+    |
+215 | # %% read in files just saved as test
+216 | #######################################
+217 | from CONUS404_Functions import read_zarr_parse_coords
+    |                                ^^^^^^^^^^^^^^^^^^^^^^ F401
+218 | annual_test = xr.open_zarr(
+219 |     Path(DIR_TIFFS, "CONUS404_AnnualMaxima_annual.zarr")
+    |
+    = help: Remove unused import: `CONUS404_Functions.read_zarr_parse_coords`
+
+ProcessCONUS404_Daily_AnnualMax.py:309:5: F821 Undefined name `cool_test`
+    |
+307 | cool_mean_max = (
+308 |     # cool_max_spat
+309 |     cool_test
+    |     ^^^^^^^^^ F821
+310 |     .mean(dim='year')
+311 |     .persist()
+    |
+
+ProcessCONUS404_Daily_AnnualMax.py:320:5: F821 Undefined name `warm_test`
+    |
+318 | warm_mean_max = (
+319 |     # warm_max_spat
+320 |     warm_test
+    |     ^^^^^^^^^ F821
+321 |     .mean(dim='year')
+322 |     .persist()
+    |
+
+ProcessCONUS404_MaxStorms.py:37:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+35 |   # called, but may still need to be loaded to be accessed from other libraries
+36 |   # that are directly called
+37 | / import os
+38 | | from pathlib import Path
+39 | | import logging
+40 | | import time
+41 | | import fsspec
+42 | | import xarray as xr
+43 | | import hvplot.xarray
+44 | | import holoviews as hv
+45 | | import intake
+46 | | import metpy
+47 | | import cartopy.crs as ccrs
+48 | | # import zarr
+49 | | import rioxarray
+50 | | import pandas as pd
+51 | | import hvplot.pandas  
+52 | | import matplotlib.pyplot as plt
+53 | | from dask.distributed import Client, LocalCluster
+54 | | from CONUS404_Functions import rolling_sum_max_and_time
+   | |_______________________________________________________^ I001
+55 |
+56 |   os.environ['USE_PYGEOS'] = '0'
+   |
+   = help: Organize imports
+
+ProcessCONUS404_MaxStorms.py:41:8: F401 [*] `fsspec` imported but unused
+   |
+39 | import logging
+40 | import time
+41 | import fsspec
+   |        ^^^^^^ F401
+42 | import xarray as xr
+43 | import hvplot.xarray
+   |
+   = help: Remove unused import: `fsspec`
+
+ProcessCONUS404_MaxStorms.py:44:21: F401 [*] `holoviews` imported but unused
+   |
+42 | import xarray as xr
+43 | import hvplot.xarray
+44 | import holoviews as hv
+   |                     ^^ F401
+45 | import intake
+46 | import metpy
+   |
+   = help: Remove unused import: `holoviews`
+
+ProcessCONUS404_MaxStorms.py:46:8: F401 [*] `metpy` imported but unused
+   |
+44 | import holoviews as hv
+45 | import intake
+46 | import metpy
+   |        ^^^^^ F401
+47 | import cartopy.crs as ccrs
+48 | # import zarr
+   |
+   = help: Remove unused import: `metpy`
+
+ProcessCONUS404_MaxStorms.py:47:23: F401 [*] `cartopy.crs` imported but unused
+   |
+45 | import intake
+46 | import metpy
+47 | import cartopy.crs as ccrs
+   |                       ^^^^ F401
+48 | # import zarr
+49 | import rioxarray
+   |
+   = help: Remove unused import: `cartopy.crs`
+
+ProcessCONUS404_MaxStorms.py:49:8: F401 [*] `rioxarray` imported but unused
+   |
+47 | import cartopy.crs as ccrs
+48 | # import zarr
+49 | import rioxarray
+   |        ^^^^^^^^^ F401
+50 | import pandas as pd
+51 | import hvplot.pandas  
+   |
+   = help: Remove unused import: `rioxarray`
+
+ProcessCONUS404_MaxStorms.py:50:18: F401 [*] `pandas` imported but unused
+   |
+48 | # import zarr
+49 | import rioxarray
+50 | import pandas as pd
+   |                  ^^ F401
+51 | import hvplot.pandas  
+52 | import matplotlib.pyplot as plt
+   |
+   = help: Remove unused import: `pandas`
+
+ProcessCONUS404_MaxStorms.py:51:8: F401 [*] `hvplot.pandas` imported but unused
+   |
+49 | import rioxarray
+50 | import pandas as pd
+51 | import hvplot.pandas  
+   |        ^^^^^^^^^^^^^ F401
+52 | import matplotlib.pyplot as plt
+53 | from dask.distributed import Client, LocalCluster
+   |
+   = help: Remove unused import: `hvplot.pandas`
+
+ProcessCONUS404_MaxStorms.py:52:29: F401 [*] `matplotlib.pyplot` imported but unused
+   |
+50 | import pandas as pd
+51 | import hvplot.pandas  
+52 | import matplotlib.pyplot as plt
+   |                             ^^^ F401
+53 | from dask.distributed import Client, LocalCluster
+54 | from CONUS404_Functions import rolling_sum_max_and_time
+   |
+   = help: Remove unused import: `matplotlib.pyplot`
+
+ProcessCONUS404_MaxStorms.py:326:1: E402 Module level import not at top of file
+    |
+324 |   # DIR_TIFFS = Path("C:/Projects/OWRD/PrecipFreq/GIS/CONUS404")
+325 |
+326 | / from CONUS404_Functions import (
+327 | |     read_zarr_parse_coords,
+328 | |     reproject_dataarray_w_datetime,
+329 | |     reproject_dataarray
+330 | |     )
+    | |_____^ E402
+331 |   from rasterio.enums import Resampling
+    |
+
+ProcessCONUS404_MaxStorms.py:326:1: I001 [*] Import block is un-sorted or un-formatted
+    |
+324 |   # DIR_TIFFS = Path("C:/Projects/OWRD/PrecipFreq/GIS/CONUS404")
+325 |
+326 | / from CONUS404_Functions import (
+327 | |     read_zarr_parse_coords,
+328 | |     reproject_dataarray_w_datetime,
+329 | |     reproject_dataarray
+330 | |     )
+331 | | from rasterio.enums import Resampling
+    | |_____________________________________^ I001
+332 |
+333 |   # read in make sure crs assigned
+    |
+    = help: Organize imports
+
+ProcessCONUS404_MaxStorms.py:328:5: F401 [*] `CONUS404_Functions.reproject_dataarray_w_datetime` imported but unused
+    |
+326 | from CONUS404_Functions import (
+327 |     read_zarr_parse_coords,
+328 |     reproject_dataarray_w_datetime,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ F401
+329 |     reproject_dataarray
+330 |     )
+    |
+    = help: Remove unused import
+
+ProcessCONUS404_MaxStorms.py:329:5: F401 [*] `CONUS404_Functions.reproject_dataarray` imported but unused
+    |
+327 |     read_zarr_parse_coords,
+328 |     reproject_dataarray_w_datetime,
+329 |     reproject_dataarray
+    |     ^^^^^^^^^^^^^^^^^^^ F401
+330 |     )
+331 | from rasterio.enums import Resampling
+    |
+    = help: Remove unused import
+
+ProcessCONUS404_MaxStorms.py:331:1: E402 Module level import not at top of file
+    |
+329 |     reproject_dataarray
+330 |     )
+331 | from rasterio.enums import Resampling
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ E402
+332 |
+333 | # read in make sure crs assigned
+    |
+
+ProcessCONUS404_MaxStorms.py:331:28: F401 [*] `rasterio.enums.Resampling` imported but unused
+    |
+329 |     reproject_dataarray
+330 |     )
+331 | from rasterio.enums import Resampling
+    |                            ^^^^^^^^^^ F401
+332 |
+333 | # read in make sure crs assigned
+    |
+    = help: Remove unused import: `rasterio.enums.Resampling`
+
+ProcessCONUS404_MaxStorms.py:344:38: SIM118 Use `key in dict` instead of `key in dict.keys()`
+    |
+342 | dict_hold = ds_test.attrs['crs_cf']
+343 |
+344 | ds_test.attrs = {x: dict_hold[x] for x in dict_hold.keys()}
+    |                                      ^^^^^^^^^^^^^^^^^^^^^ SIM118
+345 |
+346 | # ds_test.to_netcdf(Path(DIR_TIFFS, "SupraDailyMaxima.nc"))
+    |
+    = help: Remove `.keys()`
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:23:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+21 |   # called, but may still need to be loaded to be accessed from other libraries
+22 |   # that are directly called
+23 | / import os
+24 | | from pathlib import Path
+25 | | import fsspec
+26 | | import xarray as xr
+27 | | import hvplot.xarray
+28 | | import holoviews as hv
+29 | | import intake
+30 | | import metpy
+31 | | import cartopy.crs as ccrs
+32 | | # import zarr
+33 | | import rioxarray
+34 | | import pandas as pd
+35 | | import hvplot.pandas  
+36 | | import matplotlib.pyplot as plt
+37 | | import CONUS404_Functions.GIS_Functs as GF
+   | |__________________________________________^ I001
+38 |
+39 |   os.environ['USE_PYGEOS'] = '0'
+   |
+   = help: Organize imports
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:25:8: F401 [*] `fsspec` imported but unused
+   |
+23 | import os
+24 | from pathlib import Path
+25 | import fsspec
+   |        ^^^^^^ F401
+26 | import xarray as xr
+27 | import hvplot.xarray
+   |
+   = help: Remove unused import: `fsspec`
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:26:18: F401 [*] `xarray` imported but unused
+   |
+24 | from pathlib import Path
+25 | import fsspec
+26 | import xarray as xr
+   |                  ^^ F401
+27 | import hvplot.xarray
+28 | import holoviews as hv
+   |
+   = help: Remove unused import: `xarray`
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:28:21: F401 [*] `holoviews` imported but unused
+   |
+26 | import xarray as xr
+27 | import hvplot.xarray
+28 | import holoviews as hv
+   |                     ^^ F401
+29 | import intake
+30 | import metpy
+   |
+   = help: Remove unused import: `holoviews`
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:30:8: F401 [*] `metpy` imported but unused
+   |
+28 | import holoviews as hv
+29 | import intake
+30 | import metpy
+   |        ^^^^^ F401
+31 | import cartopy.crs as ccrs
+32 | # import zarr
+   |
+   = help: Remove unused import: `metpy`
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:33:8: F401 [*] `rioxarray` imported but unused
+   |
+31 | import cartopy.crs as ccrs
+32 | # import zarr
+33 | import rioxarray
+   |        ^^^^^^^^^ F401
+34 | import pandas as pd
+35 | import hvplot.pandas  
+   |
+   = help: Remove unused import: `rioxarray`
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:34:18: F401 [*] `pandas` imported but unused
+   |
+32 | # import zarr
+33 | import rioxarray
+34 | import pandas as pd
+   |                  ^^ F401
+35 | import hvplot.pandas  
+36 | import matplotlib.pyplot as plt
+   |
+   = help: Remove unused import: `pandas`
+
+ProcessCONUS404_Monthly_SeasonalPrecip.py:35:8: F401 [*] `hvplot.pandas` imported but unused
+   |
+33 | import rioxarray
+34 | import pandas as pd
+35 | import hvplot.pandas  
+   |        ^^^^^^^^^^^^^ F401
+36 | import matplotlib.pyplot as plt
+37 | import CONUS404_Functions.GIS_Functs as GF
+   |
+   = help: Remove unused import: `hvplot.pandas`
+
+ReproducibleErrorForHourlyCONUS404Access.py:1:1: I001 [*] Import block is un-sorted or un-formatted
+  |
+1 | import os
+  | ^^^^^^^^^ I001
+2 | os.environ['USE_PYGEOS'] = '0'
+  |
+  = help: Organize imports
+
+ReproducibleErrorForHourlyCONUS404Access.py:4:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 2 |   os.environ['USE_PYGEOS'] = '0'
+ 3 |
+ 4 | / import fsspec
+ 5 | | import xarray as xr
+ 6 | | import hvplot.xarray
+ 7 | | import intake
+ 8 | | import metpy
+ 9 | | import cartopy.crs as ccrs
+   | |__________________________^ I001
+10 |
+11 |   # open the hytest data intake catalog
+   |
+   = help: Organize imports
+
+ReproducibleErrorForHourlyCONUS404Access.py:4:8: F401 [*] `fsspec` imported but unused
+  |
+2 | os.environ['USE_PYGEOS'] = '0'
+3 |
+4 | import fsspec
+  |        ^^^^^^ F401
+5 | import xarray as xr
+6 | import hvplot.xarray
+  |
+  = help: Remove unused import: `fsspec`
+
+ReproducibleErrorForHourlyCONUS404Access.py:5:18: F401 [*] `xarray` imported but unused
+  |
+4 | import fsspec
+5 | import xarray as xr
+  |                  ^^ F401
+6 | import hvplot.xarray
+7 | import intake
+  |
+  = help: Remove unused import: `xarray`
+
+ReproducibleErrorForHourlyCONUS404Access.py:6:8: F401 [*] `hvplot.xarray` imported but unused
+  |
+4 | import fsspec
+5 | import xarray as xr
+6 | import hvplot.xarray
+  |        ^^^^^^^^^^^^^ F401
+7 | import intake
+8 | import metpy
+  |
+  = help: Remove unused import: `hvplot.xarray`
+
+ReproducibleErrorForHourlyCONUS404Access.py:8:8: F401 [*] `metpy` imported but unused
+  |
+6 | import hvplot.xarray
+7 | import intake
+8 | import metpy
+  |        ^^^^^ F401
+9 | import cartopy.crs as ccrs
+  |
+  = help: Remove unused import: `metpy`
+
+ReproducibleErrorForHourlyCONUS404Access.py:9:23: F401 [*] `cartopy.crs` imported but unused
+   |
+ 7 | import intake
+ 8 | import metpy
+ 9 | import cartopy.crs as ccrs
+   |                       ^^^^ F401
+10 |
+11 | # open the hytest data intake catalog
+   |
+   = help: Remove unused import: `cartopy.crs`
+
+ReproducibleErrorForHourlyCONUS404Access.py:27:1: B018 Found useless expression. Either assign it to a variable or remove it.
+   |
+25 | print(f"Reading {dataset} metadata...", end='')
+26 | ds = cat[dataset].to_dask().metpy.parse_cf()
+27 | ds
+   | ^^ B018
+   |
+
+TransformRasters.py:1:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 1 | / import rasterio
+ 2 | | from rasterio.warp import calculate_default_transform, reproject, Resampling
+ 3 | | from rasterio.mask import mask
+ 4 | | from shapely.geometry import box
+ 5 | | import geopandas as gpd
+ 6 | | import numpy as np
+ 7 | | from rasterio.io import MemoryFile
+ 8 | | from pathlib import Path
+ 9 | | from glob import glob
+   | |_____________________^ I001
+10 |
+11 |   # # Define input and output file paths
+   |
+   = help: Organize imports
+
+TransformRasters.py:6:17: F401 [*] `numpy` imported but unused
+  |
+4 | from shapely.geometry import box
+5 | import geopandas as gpd
+6 | import numpy as np
+  |                 ^^ F401
+7 | from rasterio.io import MemoryFile
+8 | from pathlib import Path
+  |
+  = help: Remove unused import: `numpy`
+
+TransformRasters_wXarray.py:12:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+11 |   # assuming TransformRasters_wXarray_Functs is in same folder as this file
+12 | / from pathlib import Path
+13 | | from TransformRasters_wXarray_Functs import (
+14 | |     reproject_tif,
+15 | |     clip_raster_to_latlon_bbox
+16 | |     )
+17 | | from rasterio.enums import Resampling
+   | |_____________________________________^ I001
+18 |
+19 |   # %% define dirs, vars, and such
+   |
+   = help: Organize imports
+
+TransformRasters_wXarray.py:116:5: SIM108 Use ternary operator `resample_meth = Resampling.mode if file.name in MODE_SAMPLE else Resampling.bilinear` instead of `if`-`else`-block
+    |
+116 | /     if file.name in MODE_SAMPLE:
+117 | |         resample_meth = Resampling.mode
+118 | |     else:
+119 | |         resample_meth = Resampling.bilinear
+    | |___________________________________________^ SIM108
+120 |
+121 |       # handle NAs if in NA_DICT
+    |
+    = help: Replace `if`-`else`-block with `resample_meth = Resampling.mode if file.name in MODE_SAMPLE else Resampling.bilinear`
+
+TransformRasters_wXarray_Functs.py:10:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+ 8 |   #################################################
+ 9 |
+10 | / import os
+11 | | from pathlib import Path
+12 | | import rioxarray
+13 | | from rasterio.enums import Resampling
+14 | | import geopandas as gpd
+15 | | from shapely.geometry import box
+16 | | import numpy as np
+   | |__________________^ I001
+17 |
+18 |   # %% function to replace values with NAs
+   |
+   = help: Organize imports
+
+TransformRasters_wXarray_Functs.py:40:8: UP038 Use `X | Y` in `isinstance` call instead of `(X, Y)`
+   |
+38 |     mask = None
+39 |
+40 |     if isinstance(na_val, (list, tuple, set)):
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ UP038
+41 |         mask = ~raster.isin(list(na_val))
+42 |     elif isinstance(na_val, dict):
+   |
+   = help: Convert to `X | Y`
+
+TransformRasters_wXarray_Functs.py:118:8: SIM101 Multiple `isinstance` calls for `input_tif`, merge into a single call
+    |
+116 |     """
+117 |     # Open the GeoTIFF with rioxarray
+118 |     if isinstance(input_tif, str) or isinstance(input_tif, Path):
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ SIM101
+119 |         print(f"Reading {input_tif}...")
+120 |         raster = rioxarray.open_rasterio(input_tif)
+    |
+    = help: Merge `isinstance` calls for `input_tif`
+
+TransformRasters_wXarray_Functs.py:153:16: UP038 Use `X | Y` in `isinstance` call instead of `(X, Y)`
+    |
+151 |         kwargs = {}
+152 |         if resolution is not None:
+153 |             if isinstance(resolution, (int, float)):
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ UP038
+154 |                 resolution = (resolution, resolution)
+155 |             kwargs['resolution'] = resolution
+    |
+    = help: Convert to `X | Y`
+
+TransformRasters_wXarray_Functs.py:204:8: SIM101 Multiple `isinstance` calls for `raster`, merge into a single call
+    |
+202 |     - Clipped raster as an xarray.DataArray
+203 |     """
+204 |     if isinstance(raster, str) or isinstance(raster, Path):
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ SIM101
+205 |         print(f"Reading {raster}...")
+206 |         raster = rioxarray.open_rasterio(raster)
+    |
+    = help: Merge `isinstance` calls for `raster`
+
+clean_delineated_basin_files.py:33:1: I001 [*] Import block is un-sorted or un-formatted
+   |
+31 |   #######################################
+32 |
+33 | / from pathlib import Path
+34 | | import geopandas as gpd
+35 | | import pandas as pd
+36 | | from shapely.geometry import Polygon, MultiPolygon, Point
+37 | | import numpy as np
+   | |__________________^ I001
+38 |
+39 |   # %% define working dirs, vars, etc.
+   |
+   = help: Organize imports
+
+clean_delineated_basin_files.py:113:8: UP038 Use `X | Y` in `isinstance` call instead of `(X, Y)`
+    |
+112 |     # if Polygon, calculate intersection over union for each polygon
+113 |     if isinstance(target_geometry, (Polygon, MultiPolygon)):
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ UP038
+114 |         if not any(comparison_gdf.geometry.intersects(target_geometry)):
+115 |             return ['None', 0]
+    |
+    = help: Convert to `X | Y`
+
+clean_delineated_basin_files.py:193:5: B007 Loop control variable `id_in` not used within loop body
+    |
+191 | nidid_duplicates = gdf_work.nidid.duplicated()
+192 | nidid_dupl_ids = gdf_work.loc[nidid_duplicates, 'nidid']
+193 | for id_in in nidid_dupl_ids:
+    |     ^^^^^ B007
+194 |     # get largest area of duplicated nidid
+195 |     gdf_temp = gdf_work.query("nidid == @id_in")
+    |
+    = help: Rename unused `id_in` to `_id_in`
+
+clean_delineated_basin_files.py:226:5: B007 Loop control variable `i` not used within loop body
+    |
+224 | gdf_combined['iou_score'] = 0
+225 |
+226 | for i, row_in in gdf_combined.iterrows():
+    |     ^ B007
+227 |     nidid_in = row_in['nidid']
+228 |     # only look forward since function is symmetric
+    |
+    = help: Rename unused `i` to `_i`
+
+Found 98 errors.
+[*] 65 fixable with the `--fix` option (9 hidden fixes can be enabled with the `--unsafe-fixes` option).

@@ -1,0 +1,198 @@
+---
+title: "Testing report building with ruff and quarto" 
+author:
+  - name: "Benjamin Choat, PhD \\ (bchoat@westconsultants.com)"
+    affiliation: "WEST Consultants, Inc."
+    email: "bchoat@westconsultants.com"
+date: "June 27, 2025"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-tile: "Table of Contents"
+    number-sections: true
+    code-fold: true
+    fontsize: "12"
+    linestretch: 1.5
+    # theme: cosmo # some options: default, cerulean, cosmo, united, journal, litera, etc.
+    embed-resources: true
+  pdf:
+    toc: true
+    toc-depth: 3
+    toc-tile: "Table of Contents"
+    number-sections: true
+    keep-tex: true
+    fontsize: "12"
+    linestretch: 1.5
+    code-block-border-left: false  # make codeblock background not-white
+  # docx: default
+# editor: visual
+highlight-style: github
+title-block-banner: true
+execute: 
+# execution options: https://quarto.org/docs/computations/execution-options.html
+    echo: true  # include source code in output
+    eval: true  # evaluate code chunk (if false, just echos code into the output)
+  
+---
+
+
+
+
+## Summary
+
+This report summarizes Ruff linting results.
+
+```{python}
+from collections import Counter
+import re
+
+r'''
+Some notes about the regex pattern
+
+Regex Part	Matches...
+:	A literal colon
+\d+	One or more digits (for line/column numbers)
+:\d+:\d+:	Matches the full :line:col: format (:12:8: in our example)
+\s+	One or more whitespace characters
+([A-Z]+\d+)	A group of one or more capital letters followed by digits (e.g. F401)
+\s+	More whitespace
+
+The parentheses () capture the actual rule code (F401), which is what we want for counting/summarizing.
+'''
+
+with open("../TestCode/ModifiedCode/ruff_output.txt") as f:
+    lines = f.readlines()
+
+pattern = re.compile(r":\d+:\d+:\s+([A-Z]+\d+)\s+")
+
+codes = [match.group(1) for line in lines if (match := pattern.search(line))]
+summary = Counter(codes)
+
+for code, count in summary.most_common():
+    print(f"{code}: {count} occurrences")
+```
+
+A bar plot showing count of each error type.
+
+```{python}
+import plotly.express as px
+import pandas as pd
+
+df_errors = pd.DataFrame(summary.most_common(), columns=["Rule", "Count"])
+
+fig = px.bar(
+    df_errors,
+    x="Rule",
+    y="Count",
+    title="Lint Rule Violations",
+    labels={"Rule": "Rule", "Count": "Violation Count"},
+    text="Count",
+)
+fig.update_traces()  #textposition="outside")
+fig.update_layout(xaxis_tickangle=-45, yaxis=dict(title="Count"))
+fig.show()
+```
+
+A pie chart showing rate of high-level errors.
+
+```{python}
+from collections import defaultdict
+
+group_counts = defaultdict(int)
+for code, count in summary.items():
+    group = code[0]  # First letter of rule: E, F, B, etc.
+    group_counts[group] += count
+
+df_group = pd.DataFrame(group_counts.items(), columns=["Group", "Count"])
+
+fig = px.pie(
+    df_group,
+    names="Group",
+    values="Count",
+    title="Lint Violations by Group (E, F, B, etc.)",
+    hole=0.4  # for donut chart
+)
+fig.show()
+
+```
+
+A heatmap showing error by type and file.
+
+```{python}
+import re
+import pandas as pd
+from collections import defaultdict
+
+file_rule_counts = defaultdict(lambda: defaultdict(int))
+
+# Read Ruff output (text format)
+with open("../TestCode/ModifiedCode/ruff_output.txt") as f:
+    for line in f:
+        match = re.search(r"^(.*?):\d+:\d+:\s+([A-Z]+\d+)", line)
+        if match:
+            file_path = match.group(1)
+            rule_code = match.group(2)
+            file_rule_counts[file_path][rule_code] += 1
+
+
+# Flatten to rows for DataFrame
+rows = []
+for file, rule_counts in file_rule_counts.items():
+    for rule, count in rule_counts.items():
+        rows.append({"File": file, "Rule": rule, "Count": count})
+
+df = pd.DataFrame(rows)
+
+heatmap_df = df.pivot(index="File", columns="Rule", values="Count").fillna(0)
+
+import plotly.express as px
+
+fig = px.imshow(
+    heatmap_df,
+    labels=dict(x="Rule Code", y="File", color="Count"),
+    color_continuous_scale="Reds",
+    aspect="auto",
+    title="Violations by File and Rule Code"
+)
+fig.update_xaxes(side="top")
+fig.show()
+
+```
+
+
+```{python}
+import json
+from great_tables import GT
+
+# Load from local JSON file
+with open("./error_codes.json") as f:
+    rule_descriptions = json.load(f)
+
+# Get a description
+df_errors['Description'] = [rule_descriptions.get(x) for x in df_errors['Rule']]
+
+# print(df_errors)
+df_table = df_errors.sort_values(
+    by="Count", ascending=False
+    ).reset_index(drop=True)
+
+# Create a display table based on the `sp500_mini` table data
+(
+    GT(df_table)
+    .cols_align(align="center")
+    .tab_header(title="Error Description", subtitle="Linting Errors")
+    # .fmt_currency(columns=["open", "high", "low", "close"])
+    # .fmt_date(columns="date", date_style="wd_m_day_year")
+    # .fmt_number(columns="Count", compact=True)
+    .fmt_integer(columns=["Count"])
+    .data_color(
+        columns=["Count"],  # Target these columns
+        # palette="viridis",  # Use a beautiful sequential color palette
+        palette=["white", "red"],
+        domain=[df_table['Count'].min(), df_table['Count'].max()]
+        # reverse=True  # reverse palette
+    )
+    # .cols_hide(columns="adj_close")
+)
+```
